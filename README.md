@@ -17,18 +17,14 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+My recommendation system is inspired by how platforms like Spotify combine user preferences with song characteristics. Each song is represented using features such as genre, mood, energy, tempo, valence, danceability, and acousticness. The user profile stores their preferences based on liked or frequently played songs, summarized as average feature values. The recommender then computes a similarity score between each song and the user profile, prioritizing songs that are closest to the user’s taste. Finally, the system recommends the top-ranked songs with the highest similarity scores, focusing on matching mood and energy while still allowing some diversity.
+To implement this, I define a user profile with a preferred genre (lofi), mood (chill), and target values for energy, tempo, and valence, which act as a reference point for comparison. The system then iterates through each song in the dataset and assigns a score based on how well it matches this profile: it adds +2 points for a genre match and +1 point for a mood match, and computes additional similarity scores for numerical features by measuring how close each song’s energy, tempo, and valence are to the target values. After scoring all songs, the system ranks them from highest to lowest score and selects the top K songs as recommendations. This approach ensures that the recommendations strongly reflect the user’s preferred style while still accounting for nuanced differences in musical characteristics.
+This system is biased toward songs that explicitly match the user’s preferred genre and mood, since these features are given the highest weights, which may cause it to overlook songs from other genres that still closely match the user’s numerical preferences. It also assumes that the user’s taste can be accurately captured by average feature values, which can flatten more complex or varied preferences. Additionally, the similarity functions treat all numerical differences linearly, which may not reflect how people actually perceive changes in tempo or energy. Finally, because the dataset is small and manually labeled, any inconsistencies or subjectivity in these labels will directly affect the recommendations.
 
-Some prompts to answer:
+[![Music Recommender](mermaid-diagram.png)](mermaid-diagram.png)
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
-
-You can include a simple diagram or bullet list if helpful.
-
+Example of Recommendations
+[![Music Recommender](recommedations.jpg)](recommedations.jpg)
 ---
 
 ## Getting Started
